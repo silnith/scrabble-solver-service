@@ -2,8 +2,8 @@ package org.silnith.bluenile.scrabble;
 
 import java.util.SortedSet;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class ScrabbleServiceTest {
     
@@ -12,8 +12,8 @@ public class ScrabbleServiceTest {
         ScrabbleService scrabbleService = new ScrabbleService();
         
         SortedSet<String> words = scrabbleService.getWords("abc");
-        Assert.assertNotNull(words);
-        Assert.assertEquals(words.size(), 4);
+        Assertions.assertNotNull(words);
+        Assertions.assertEquals(words.size(), 4);
     }
     
 }

@@ -2,7 +2,8 @@ package org.silnith.bluenile.scrabble;
 
 import java.util.SortedSet;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ScrabbleController {
 
-  @Autowired
+  @Inject
   private ScrabbleService scrabbleService;
 
   @ResponseBody

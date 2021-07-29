@@ -1,4 +1,4 @@
-package com.bluenile.scrabble;
+package org.silnith.bluenile.scrabble;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.bluenile.scrabble;
+package org.silnith.bluenile.scrabble;
 
 import java.util.SortedSet;
 

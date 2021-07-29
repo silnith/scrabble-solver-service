@@ -1,4 +1,4 @@
-package com.bluenile.scrabble;
+package org.silnith.bluenile.scrabble;
 
 import java.util.SortedSet;
 
@@ -11,7 +11,7 @@ public class ScrabbleServiceTest {
   public void testGetWordsReturnsAListOfWords() {
     ScrabbleService scrabbleService = new ScrabbleService();
 
-    SortedSet words = scrabbleService.getWords("abc");
+    SortedSet<String> words = scrabbleService.getWords("abc");
     Assert.assertNotNull(words);
     Assert.assertEquals(words.size(), 4);
   }

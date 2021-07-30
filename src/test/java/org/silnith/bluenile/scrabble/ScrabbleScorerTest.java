@@ -23,5 +23,10 @@ class ScrabbleScorerTest {
     void testScore_Antidisestablishmenatarianism() {
         assertEquals(39, scorer.score("antidisestablishmenatarianism"));
     }
+
+    @Test
+    void testScore_Nonsense() {
+        assertEquals(0, scorer.score("17596  (*^)&^#Q%"));
+    }
     
 }

@@ -30,4 +30,9 @@ class ScrabbleComparatorTest {
         assertEquals(1, Math.signum(comparator.compare("aa", "a")));
     }
     
+    @Test
+    void testCompare_SameScore() {
+        assertEquals(-1, Math.signum(comparator.compare("a", "e")));
+    }
+    
 }

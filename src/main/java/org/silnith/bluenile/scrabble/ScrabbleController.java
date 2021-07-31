@@ -2,37 +2,38 @@ package org.silnith.bluenile.scrabble;
 
 import java.util.SortedSet;
 
+import javax.annotation.ManagedBean;
 import javax.inject.Inject;
-import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-
-@RestController
-@Validated
+@ManagedBean
+@ValidateOnExecution(type = {ExecutableType.ALL,})
+@Path("words")
 public class ScrabbleController {
     
-    @Inject
-    private ScrabbleService scrabbleService;
+    private final ScrabbleService scrabbleService;
     
-    @ResponseBody
-    @RequestMapping(value = "/words/{letters}", produces = "application/json")
-    public SortedSet<String> getWords(@PathVariable("letters") @NotBlank final String letters) {
+    @Inject
+    public ScrabbleController(@NotNull final ScrabbleService scrabbleService) {
+        super();
+        this.scrabbleService = scrabbleService;
+    }
+
+    @GET
+    @Path("{letters}")
+    @Produces({MediaType.APPLICATION_JSON,})
+    public @NotNull SortedSet<@NotBlank String> getWords(@PathParam("letters") @NotBlank final String letters) {
         final SortedSet<String> words = scrabbleService.getWords(letters.toLowerCase());
         return words;
-    }
-    
-    @ExceptionHandler({ConstraintViolationException.class,})
-    public ResponseEntity<?> handleBadInput() {
-        return ResponseEntity.badRequest()
-                .build();
     }
     
 }

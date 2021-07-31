@@ -1,5 +1,6 @@
 package org.silnith.bluenile.scrabble;
 
+import java.util.Collections;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -34,7 +35,7 @@ public class ScrabbleService {
      * @return A sorted set of words
      */
     public @NotNull SortedSet<@NotBlank String> getWords(@NotBlank final String letters) {
-        final SortedSet<String> words = new TreeSet<String>(comparator);
+        final SortedSet<String> words = new TreeSet<String>(Collections.reverseOrder(comparator));
         
         words.addAll(dictionary.buildWords(letters));
         

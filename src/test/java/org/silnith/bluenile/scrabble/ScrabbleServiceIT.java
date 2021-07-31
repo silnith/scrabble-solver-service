@@ -1,6 +1,9 @@
 package org.silnith.bluenile.scrabble;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,6 +36,7 @@ public class ScrabbleServiceIT {
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         final List<String> body = responseEntity.getBody();
         Assertions.assertEquals(5, body.size());
+        assertEquals(Arrays.asList("hat", "ha", "ah", "ta", "at"), body);
     }
     
     @Test

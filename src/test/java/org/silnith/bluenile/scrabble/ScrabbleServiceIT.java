@@ -40,7 +40,7 @@ public class ScrabbleServiceIT {
         final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/words/%20%20%20"))
                 .accept(MediaType.APPLICATION_JSON)
                 .build();
-        final ResponseEntity<Object> responseEntity = restTemplate.exchange(requestEntity, Object.class);
+        final ResponseEntity<?> responseEntity = restTemplate.exchange(requestEntity, String.class);
         
         Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
     }

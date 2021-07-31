@@ -12,10 +12,13 @@ public class ScrabbleService {
     
     private final ScrabbleComparator comparator;
     
+    private final ScrabbleDictionary dictionary;
+    
     @Inject
-    public ScrabbleService(final ScrabbleComparator comparator) {
+    public ScrabbleService(final ScrabbleComparator comparator, final ScrabbleDictionary scrabbleDictionary) {
         super();
         this.comparator = comparator;
+        this.dictionary = scrabbleDictionary;
     }
 
     /**
@@ -28,10 +31,7 @@ public class ScrabbleService {
     public SortedSet<String> getWords(final String letters) {
         final SortedSet<String> words = new TreeSet<String>(comparator);
         
-        words.add("dog");
-        words.add("cat");
-        words.add("fish");
-        words.add("velociraptor");
+        words.addAll(dictionary.buildWords(letters));
         
         return words;
     }

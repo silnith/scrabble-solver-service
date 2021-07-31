@@ -12,14 +12,20 @@ class ScrabbleServiceTest {
     
     @BeforeEach
     void setUp() throws Exception {
-        scrabbleService = new ScrabbleService(new ScrabbleComparator(new ScrabbleScorer()));
+        final ScrabbleScorer scorer = new ScrabbleScorer();
+        final ScrabbleComparator comparator = new ScrabbleComparator(scorer);
+        final CharacterCounter characterCounter = new CharacterCounter();
+        final ScrabbleDictionary scrabbleDictionary = new ScrabbleDictionary(characterCounter);
+        final DictionaryLoader dictionaryLoader = new DictionaryLoader("/dictionary.txt");
+        scrabbleDictionary.setWords(dictionaryLoader.call());
+        scrabbleService = new ScrabbleService(comparator, scrabbleDictionary);
     }
 
     @Test
     public void testGetWordsReturnsAListOfWords() {
-        SortedSet<String> words = scrabbleService.getWords("abc");
+        SortedSet<String> words = scrabbleService.getWords("hat");
         Assertions.assertNotNull(words);
-        Assertions.assertEquals(4, words.size());
+        Assertions.assertEquals(5, words.size());
     }
     
 }

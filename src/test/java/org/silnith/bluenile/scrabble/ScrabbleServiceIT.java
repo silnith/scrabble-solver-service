@@ -24,7 +24,7 @@ public class ScrabbleServiceIT {
     
     @Test
     public void testApplicationStartsUp() {
-        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/words/foo"))
+        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/words/hat"))
                 .accept(MediaType.APPLICATION_JSON)
                 .build();
         final ParameterizedTypeReference<List<String>> stringListType = new ParameterizedTypeReference<List<String>>() {};
@@ -32,7 +32,7 @@ public class ScrabbleServiceIT {
         
         Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         final List<String> body = responseEntity.getBody();
-        Assertions.assertEquals(4, body.size());
+        Assertions.assertEquals(5, body.size());
     }
     
 }

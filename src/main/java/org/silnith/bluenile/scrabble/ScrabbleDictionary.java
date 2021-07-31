@@ -2,7 +2,6 @@ package org.silnith.bluenile.scrabble;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +10,14 @@ import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
 
 
 @ManagedBean
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleDictionary {
     
     private final CharacterCounter characterCounter;
@@ -21,10 +25,9 @@ public class ScrabbleDictionary {
     private final List<Collection<String>> wordsByLength;
 
     @Inject
-    public ScrabbleDictionary(final CharacterCounter characterCounter) {
+    public ScrabbleDictionary(@NotNull final CharacterCounter characterCounter) {
         super();
         this.characterCounter = characterCounter;
-        new HashMap<>();
         this.wordsByLength = new ArrayList<>();
     }
     
@@ -41,7 +44,7 @@ public class ScrabbleDictionary {
         }
     }
     
-    public Collection<String> buildWords(final String letters) {
+    public @NotNull Collection<@NotBlank String> buildWords(@NotNull final String letters) {
         final Map<Character, Integer> lettersAvailable = characterCounter.getCharacterCount(letters);
         
         final Collection<String> words = new ArrayList<>();
@@ -59,7 +62,9 @@ public class ScrabbleDictionary {
         return words;
     }
     
-    protected boolean hasAllLettersAvailable(final Map<Character, Integer> lettersAvailable, final Map<Character, Integer> lettersNeeded) {
+    protected boolean hasAllLettersAvailable(
+            @NotEmpty final Map<@NotNull Character, @Positive Integer> lettersAvailable,
+            @NotEmpty final Map<@NotNull Character, @Positive Integer> lettersNeeded) {
         if (lettersAvailable.keySet().containsAll(lettersNeeded.keySet())) {
             for (final Map.Entry<Character, Integer> entry : lettersNeeded.entrySet()) {
                 final char letter = entry.getKey();

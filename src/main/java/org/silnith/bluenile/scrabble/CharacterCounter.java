@@ -4,12 +4,16 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.ManagedBean;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
 
-import org.springframework.stereotype.Component;
 
-
-@Component
+@ManagedBean
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class CharacterCounter {
     
     @Inject
@@ -17,7 +21,7 @@ public class CharacterCounter {
         super();
     }
 
-    public Map<Character, Integer> getCharacterCount(final String letters) {
+    public @NotNull Map<@NotNull Character, @Positive Integer> getCharacterCount(@NotNull final String letters) {
         final Map<Character, Integer> charCount = new HashMap<>();
         for (final char c : letters.toLowerCase(Locale.US).toCharArray()) {
             charCount.put(c, charCount.getOrDefault(c, 0) + 1);

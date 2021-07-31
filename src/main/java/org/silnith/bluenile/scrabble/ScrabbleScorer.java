@@ -4,15 +4,22 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
+import javax.annotation.ManagedBean;
+import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
 
 
-@Component
+@ManagedBean
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleScorer {
     
-    private static final Map<Character, Integer> letterScore;
+    private final Map<Character, Integer> letterScore;
     
-    static {
+    @Inject
+    public ScrabbleScorer() {
+        super();
         letterScore = new HashMap<>();
         for (final char c : Arrays.asList('A', 'E', 'I', 'L', 'N', 'O', 'R', 'S', 'T', 'U')) {
             letterScore.put(Character.toLowerCase(c), 1);
@@ -37,7 +44,7 @@ public class ScrabbleScorer {
         }
     }
     
-    public int score(final String word) {
+    public int score(@NotNull final String word) {
         int score = 0;
         for (final char c : word.toCharArray()) {
             score += letterScore.getOrDefault(c, 0);

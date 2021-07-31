@@ -4,18 +4,21 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 
+import javax.annotation.ManagedBean;
 import javax.inject.Inject;
+import javax.validation.constraints.NotNull;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
 
-import org.springframework.stereotype.Component;
 
-
-@Component
+@ManagedBean
+@ValidateOnExecution(type = {ExecutableType.CONSTRUCTORS,})
 public class ScrabbleComparator implements Comparator<String> {
     
     private final ScrabbleScorer scorer;
 
     @Inject
-    public ScrabbleComparator(final ScrabbleScorer scorer) {
+    public ScrabbleComparator(@NotNull final ScrabbleScorer scorer) {
         super();
         this.scorer = scorer;
     }

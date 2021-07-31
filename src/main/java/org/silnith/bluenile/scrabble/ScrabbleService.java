@@ -3,11 +3,16 @@ package org.silnith.bluenile.scrabble;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javax.annotation.ManagedBean;
 import javax.inject.Inject;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
 
-import org.springframework.stereotype.Component;
 
-@Component
+@ManagedBean
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleService {
     
     private final ScrabbleComparator comparator;
@@ -15,7 +20,7 @@ public class ScrabbleService {
     private final ScrabbleDictionary dictionary;
     
     @Inject
-    public ScrabbleService(final ScrabbleComparator comparator, final ScrabbleDictionary scrabbleDictionary) {
+    public ScrabbleService(@NotNull final ScrabbleComparator comparator, @NotNull final ScrabbleDictionary scrabbleDictionary) {
         super();
         this.comparator = comparator;
         this.dictionary = scrabbleDictionary;
@@ -28,7 +33,7 @@ public class ScrabbleService {
      * @param letters The letters to form words from
      * @return A sorted set of words
      */
-    public SortedSet<String> getWords(final String letters) {
+    public @NotNull SortedSet<@NotBlank String> getWords(@NotBlank final String letters) {
         final SortedSet<String> words = new TreeSet<String>(comparator);
         
         words.addAll(dictionary.buildWords(letters));

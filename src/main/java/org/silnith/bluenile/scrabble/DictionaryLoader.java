@@ -33,6 +33,13 @@ public class DictionaryLoader implements Callable<Collection<String>> {
         this.resourceName = resourceName;
     }
 
+    /**
+     * Loads the specified resource.
+     * 
+     * @return the contents of the resource as a collection of words
+     * @throws IOException if the specified resource failed to load
+     * {@inheritDoc}
+     */
     @Override
     public Collection<String> call() throws IOException {
         final InputStream resourceAsStream = DictionaryLoader.class.getResourceAsStream(resourceName);

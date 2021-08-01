@@ -11,28 +11,38 @@ import org.springframework.context.annotation.Bean;
 /**
  * This application starts a web service that returns Scrabble suggestions for
  * a given set of letters. The highest-scoring words are listed first. For
- * example, an HTTP GET request to http://local.bluenile.com:18080/words/hat
+ * example, an HTTP GET request to {@code http://local.bluenile.com:8080/words/hat}
  * returns:
  *
- * <pre>
+ * <pre><code>
  * [
  *   "hat",
- *   "ah",
  *   "ha",
- *   "th",
- *   "at",
- *   "a"
+ *   "ah",
+ *   "ta",
+ *   "at"
  * ]
- * </pre>
+ * </code></pre>
  **/
 @SpringBootApplication
 public class ScrabbleMain {
     
+    /**
+     * A loader for the Scrabble dictionary.
+     * 
+     * <p>This is only specified here until I remember the CDI way to inject a configuration value.</p>
+     */
     @Bean
     public DictionaryLoader dictionaryLoader(@Value("/dictionary.txt") final String resourceName) {
         return new DictionaryLoader(resourceName);
     }
     
+    /**
+     * The complete list of legal Scrabble words.
+     * 
+     * <p>This is injected into {@link ScrabbleDictionary}
+     * by {@linkplain ScrabbleDictionary#setWords(Collection) setter}.</p>
+     */
     @Bean
     public Collection<String> words(final DictionaryLoader dictionaryLoader) throws IOException {
         return dictionaryLoader.call();

@@ -30,7 +30,7 @@ public class CharacterCounter {
     }
     
     /**
-     * Counts the characters in a string.  Returns the counts as a map of letter to cardinality.
+     * Counts the characters in a string.  Returns a map of letter to count.
      * 
      * @param letters a string of letters to count
      * @return a map of individual characters to the number of occurrences of that character in the string

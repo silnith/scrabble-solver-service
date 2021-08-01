@@ -62,4 +62,16 @@ public class ScrabbleServiceIT {
         assertNotNull(body);
     }
     
+    @Test
+    public void testApplication_OpenAPIAcceptHeader() {
+        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/openapi"))
+                .accept(MediaType.APPLICATION_JSON)
+                .build();
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);
+        
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        final String body = responseEntity.getBody();
+        assertNotNull(body);
+    }
+    
 }

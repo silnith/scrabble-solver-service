@@ -12,10 +12,22 @@ import java.util.concurrent.Callable;
 import javax.validation.constraints.NotBlank;
 
 
+/**
+ * An invokable that loads a list of words from a resource file.
+ * 
+ * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
+ */
 public class DictionaryLoader implements Callable<Collection<String>> {
     
     private final String resourceName;
     
+    /**
+     * Creates a loader that will load the named Java resource.  This must be available
+     * on the classpath.
+     * 
+     * @param resourceName the name of the resource to load.  This must be relative to the
+     *         package containing this class, or else fully-qualified.
+     */
     public DictionaryLoader(@NotBlank final String resourceName) {
         super();
         this.resourceName = resourceName;
@@ -29,7 +41,7 @@ public class DictionaryLoader implements Callable<Collection<String>> {
             final Collection<String> lines = new ArrayList<>();
             String line = bufferedReader.readLine();
             while (line != null) {
-                lines.add(line);
+                lines.add(line.trim());
                 line = bufferedReader.readLine();
             }
             return lines;

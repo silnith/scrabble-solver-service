@@ -16,6 +16,13 @@ import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
 
+/**
+ * A dictionary of all legal words in the game of Scrabble.  This exposes an API
+ * that can enumerate all possible Scrabble words that can be formed from a given
+ * set of letters.
+ * 
+ * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
+ */
 @ManagedBean
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleDictionary {
@@ -24,6 +31,12 @@ public class ScrabbleDictionary {
     
     private final List<Collection<String>> wordsByLength;
 
+    /**
+     * Creates a dictionary of Scrabble words.
+     * 
+     * @param characterCounter a component for counting how many times each letter
+     *         appears in a word
+     */
     @Inject
     public ScrabbleDictionary(@NotNull final CharacterCounter characterCounter) {
         super();
@@ -31,6 +44,14 @@ public class ScrabbleDictionary {
         this.wordsByLength = new ArrayList<>();
     }
     
+    /**
+     * Sets the complete collection of words in the Scrabble dictionary.
+     * All subsequent calls to {@link #buildWords(String)} will use the
+     * words set by this call.
+     * 
+     * @param words all the words in the dictionary
+     * @see DictionaryLoader
+     */
     @Inject
     public void setWords(@NotEmpty final Collection<@NotBlank String> words) {
         wordsByLength.clear();
@@ -44,6 +65,12 @@ public class ScrabbleDictionary {
         }
     }
     
+    /**
+     * Returns all the legal Scrabble words that can be formed using the provided letters.
+     * 
+     * @param letters a string of all the letters available to form a word
+     * @return all legal Scrabble words that can be formed using the provided letters
+     */
     public @NotNull Collection<@NotBlank String> buildWords(@NotNull final String letters) {
         final Map<Character, Integer> lettersAvailable = characterCounter.getCharacterCount(letters);
         
@@ -62,6 +89,13 @@ public class ScrabbleDictionary {
         return words;
     }
     
+    /**
+     * Checks whether one distribution of letters is a subset of another.
+     * 
+     * @param lettersAvailable the letters available to form a word
+     * @param lettersNeeded the letters needed to form a word
+     * @return {@code true} if the word can be formed using the letters available
+     */
     protected boolean hasAllLettersAvailable(
             @NotEmpty final Map<@NotNull Character, @Positive Integer> lettersAvailable,
             @NotEmpty final Map<@NotNull Character, @Positive Integer> lettersNeeded) {

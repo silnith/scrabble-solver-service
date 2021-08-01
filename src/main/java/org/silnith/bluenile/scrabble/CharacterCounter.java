@@ -12,15 +12,29 @@ import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
 
+/**
+ * A component able to count how many times each letter appears in a string.
+ * 
+ * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
+ */
 @ManagedBean
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class CharacterCounter {
     
+    /**
+     * Creates a new character counter.
+     */
     @Inject
     public CharacterCounter() {
         super();
     }
-
+    
+    /**
+     * Counts the characters in a string.  Returns the counts as a map of letter to cardinality.
+     * 
+     * @param letters a string of letters to count
+     * @return a map of individual characters to the number of occurrences of that character in the string
+     */
     public @NotNull Map<@NotNull Character, @Positive Integer> getCharacterCount(@NotNull final String letters) {
         final Map<Character, Integer> charCount = new HashMap<>();
         for (final char c : letters.toLowerCase(Locale.US).toCharArray()) {

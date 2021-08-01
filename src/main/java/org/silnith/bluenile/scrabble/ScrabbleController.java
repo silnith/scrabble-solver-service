@@ -15,6 +15,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 
+/**
+ * A REST controller exposing {@link ScrabbleService}.
+ * 
+ * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
+ */
 @ManagedBean
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 @Path("words")

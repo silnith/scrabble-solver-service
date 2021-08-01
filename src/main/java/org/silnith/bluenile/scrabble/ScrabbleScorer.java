@@ -11,12 +11,20 @@ import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
 
+/**
+ * A component that calculates the score of a word in the game Scrabble.
+ * 
+ * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
+ */
 @ManagedBean
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleScorer {
     
     private final Map<Character, Integer> letterScore;
     
+    /**
+     * Creates a new scorer.
+     */
     @Inject
     public ScrabbleScorer() {
         super();
@@ -44,6 +52,12 @@ public class ScrabbleScorer {
         }
     }
     
+    /**
+     * Returns the score of a word in the game Scrabble.
+     * 
+     * @param word the word to score
+     * @return the score of the word
+     */
     public int score(@NotNull final String word) {
         int score = 0;
         for (final char c : word.toCharArray()) {

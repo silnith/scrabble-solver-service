@@ -1,6 +1,6 @@
 package org.silnith.bluenile.scrabble;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.URI;
 import java.util.Arrays;
@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -33,9 +32,9 @@ public class ScrabbleServiceIT {
         final ParameterizedTypeReference<List<String>> stringListType = new ParameterizedTypeReference<List<String>>() {};
         final ResponseEntity<List<String>> responseEntity = restTemplate.exchange(requestEntity, stringListType);
         
-        Assertions.assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         final List<String> body = responseEntity.getBody();
-        Assertions.assertEquals(5, body.size());
+        assertEquals(5, body.size());
         assertEquals(Arrays.asList("hat", "ha", "ah", "ta", "at"), body);
     }
     
@@ -44,9 +43,23 @@ public class ScrabbleServiceIT {
         final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/words/%20%20%20"))
                 .accept(MediaType.APPLICATION_JSON)
                 .build();
-        final ResponseEntity<?> responseEntity = restTemplate.exchange(requestEntity, String.class);
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);
         
-        Assertions.assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        final String body = responseEntity.getBody();
+        assertNotNull(body);
+    }
+    
+    @Test
+    public void testApplication_OpenAPI() {
+        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/openapi.json"))
+                .accept(MediaType.APPLICATION_JSON)
+                .build();
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);
+        
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        final String body = responseEntity.getBody();
+        assertNotNull(body);
     }
     
 }

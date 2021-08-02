@@ -16,6 +16,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.silnith.bluenile.scrabble.dictionary.ScrabbleService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 
 /**
  * A REST controller exposing {@link ScrabbleService}.
@@ -47,10 +51,19 @@ public class ScrabbleController {
      * @param letters the letters available to form a word
      * @return all legal Scrabble words, sorted by Scrabble score, descending
      */
+    @Operation(
+            summary = "Returns all legal Scrabble words that can be formed using the provided letters.",
+            description = "Returns all legal Scrabble words that can be formed using the provided letters.  The words will be sorted by Scrabble score, descending.",
+            responses = {
+                    @ApiResponse(responseCode = "default", description = "All legal Scrabble words, sorted by Scrabble score, descending."),
+                    @ApiResponse(responseCode = "400", description = "If no ASCII characters are provided."),
+            })
     @GET
     @Path("{letters}")
     @Produces({MediaType.APPLICATION_JSON,})
-    public @NotNull SortedSet<@NotBlank String> getWords(@PathParam("letters") @NotBlank final String letters) {
+    public @NotNull SortedSet<@NotBlank String> getWords(
+            @Parameter(description = "The letters available to form a word.")
+            @PathParam("letters") @NotBlank final String letters) {
         final SortedSet<String> words = scrabbleService.getWords(letters.toLowerCase());
         return words;
     }

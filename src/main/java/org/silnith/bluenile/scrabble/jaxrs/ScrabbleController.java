@@ -29,12 +29,24 @@ public class ScrabbleController {
     
     private final ScrabbleService scrabbleService;
     
+    /**
+     * Creates a new REST controller exposing Scrabble functionality.
+     * 
+     * @param scrabbleService a service that handles Scrabble-related functionality
+     */
     @Inject
     public ScrabbleController(@NotNull final ScrabbleService scrabbleService) {
         super();
         this.scrabbleService = scrabbleService;
     }
-
+    
+    /**
+     * Returns all legal Scrabble words that can be formed using the provided letters.
+     * The words will be sorted by Scrabble score, descending.
+     * 
+     * @param letters the letters available to form a word
+     * @return all legal Scrabble words, sorted by Scrabble score, descending
+     */
     @GET
     @Path("{letters}")
     @Produces({MediaType.APPLICATION_JSON,})

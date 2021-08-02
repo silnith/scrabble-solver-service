@@ -2,6 +2,7 @@ package org.silnith.bluenile.scrabble.dictionary;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.ManagedBean;
@@ -55,12 +56,14 @@ public class ScrabbleScorer {
     /**
      * Returns the score of a word in the game Scrabble.
      * 
+     * <p>Any character that is not an ASCII letter is scored as {@code 0}.
+     * 
      * @param word the word to score
      * @return the score of the word
      */
     public int score(@NotNull final String word) {
         int score = 0;
-        for (final char c : word.toCharArray()) {
+        for (final char c : word.toLowerCase(Locale.ENGLISH).toCharArray()) {
             score += letterScore.getOrDefault(c, 0);
         }
         return score;

@@ -26,7 +26,7 @@ class ScrabbleScorerTest {
 
     @Test
     void testScore_Nonsense() {
-        assertEquals(0, scorer.score("17596  (*^)&^#Q%"));
+        assertEquals(0, scorer.score("17596  (*^)&^#%"));
     }
     
 }

@@ -2,6 +2,7 @@ package org.silnith.bluenile.scrabble;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
+import org.silnith.bluenile.scrabble.jaxrs.ScrabbleController;
 import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.jaxrs2.integration.resources.AcceptHeaderOpenApiResource;

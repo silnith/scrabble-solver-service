@@ -1,4 +1,4 @@
-package org.silnith.bluenile.scrabble;
+package org.silnith.bluenile.scrabble.jaxrs;
 
 import static org.junit.jupiter.api.Assertions.*;
 

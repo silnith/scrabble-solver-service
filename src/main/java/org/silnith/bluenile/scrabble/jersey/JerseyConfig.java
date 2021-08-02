@@ -3,6 +3,7 @@ package org.silnith.bluenile.scrabble.jersey;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.silnith.bluenile.scrabble.jaxrs.ScrabbleController;
+import org.silnith.bluenile.scrabble.jaxrs.WebJars;
 import org.springframework.context.annotation.Configuration;
 
 import io.swagger.v3.jaxrs2.integration.resources.AcceptHeaderOpenApiResource;
@@ -13,7 +14,8 @@ import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
 public class JerseyConfig extends ResourceConfig {
     
     public JerseyConfig() {
-        super(ScrabbleController.class, OpenApiResource.class, AcceptHeaderOpenApiResource.class);
+        super(ScrabbleController.class, WebJars.class,
+                OpenApiResource.class, AcceptHeaderOpenApiResource.class);
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
     }
     

@@ -2,7 +2,6 @@ package org.silnith.bluenile.scrabble.jaxrs;
 
 import java.util.SortedSet;
 
-import javax.annotation.ManagedBean;
 import javax.inject.Inject;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,7 +25,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ManagedBean
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 @Path("words")
 public class ScrabbleController {

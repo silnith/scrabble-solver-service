@@ -74,4 +74,16 @@ public class ScrabbleServiceIT {
         assertNotNull(body);
     }
     
+    @Test
+    public void testApplication_SwaggerUI() {
+        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/webjars/swagger-ui/index.html"))
+                .accept(MediaType.TEXT_HTML)
+                .build();
+        final ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);
+        
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        final String body = responseEntity.getBody();
+        assertNotNull(body);
+    }
+    
 }

@@ -76,7 +76,7 @@ public class ScrabbleServiceIT {
     
     @Test
     public void testApplication_SwaggerUI() {
-        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/webjars/swagger-ui/index.html"))
+        final RequestEntity<?> requestEntity = RequestEntity.get(URI.create("/swagger-ui/index.html"))
                 .accept(MediaType.TEXT_HTML)
                 .build();
         final ResponseEntity<String> responseEntity = restTemplate.exchange(requestEntity, String.class);

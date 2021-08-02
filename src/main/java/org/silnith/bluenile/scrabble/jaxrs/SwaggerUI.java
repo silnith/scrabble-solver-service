@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
+@Path("swagger-ui")
 public class SwaggerUI {
     
     private final String version = "3.51.1";

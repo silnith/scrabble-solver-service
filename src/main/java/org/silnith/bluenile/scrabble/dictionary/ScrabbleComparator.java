@@ -1,4 +1,4 @@
-package org.silnith.bluenile.scrabble;
+package org.silnith.bluenile.scrabble.dictionary;
 
 import java.text.Collator;
 import java.util.Comparator;

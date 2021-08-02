@@ -3,10 +3,13 @@ package org.silnith.bluenile.scrabble;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.silnith.bluenile.scrabble.dictionary.DictionaryLoader;
+import org.silnith.bluenile.scrabble.dictionary.ScrabbleDictionary;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
 
 /**
  * This application starts a web service that returns Scrabble suggestions for
@@ -23,7 +26,7 @@ import org.springframework.context.annotation.Bean;
  *   "at"
  * ]
  * </code></pre>
- **/
+ */
 @SpringBootApplication
 public class ScrabbleMain {
     

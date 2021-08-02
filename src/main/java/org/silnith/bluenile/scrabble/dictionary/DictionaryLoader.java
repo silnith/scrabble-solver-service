@@ -1,4 +1,4 @@
-package org.silnith.bluenile.scrabble;
+package org.silnith.bluenile.scrabble.dictionary;
 
 import java.io.BufferedReader;
 import java.io.IOException;

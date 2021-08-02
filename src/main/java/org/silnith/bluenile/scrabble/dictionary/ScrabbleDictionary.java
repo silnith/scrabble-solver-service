@@ -99,19 +99,18 @@ public class ScrabbleDictionary {
     protected boolean hasAllLettersAvailable(
             @NotEmpty final Map<@NotNull Character, @Positive Integer> lettersAvailable,
             @NotEmpty final Map<@NotNull Character, @Positive Integer> lettersNeeded) {
-        if (lettersAvailable.keySet().containsAll(lettersNeeded.keySet())) {
-            for (final Map.Entry<Character, Integer> entry : lettersNeeded.entrySet()) {
-                final char letter = entry.getKey();
-                final int needed = entry.getValue();
-                
-                final Integer available = lettersAvailable.getOrDefault(letter, 0);
-                
-                if (needed > available) {
-                    return false;
-                }
-            }
-        } else {
+        if (!lettersAvailable.keySet().containsAll(lettersNeeded.keySet())) {
             return false;
+        }
+        for (final Map.Entry<Character, Integer> entry : lettersNeeded.entrySet()) {
+            final char letter = entry.getKey();
+            final int needed = entry.getValue();
+            
+            final int available = lettersAvailable.getOrDefault(letter, 0);
+            
+            if (needed > available) {
+                return false;
+            }
         }
         return true;
     }

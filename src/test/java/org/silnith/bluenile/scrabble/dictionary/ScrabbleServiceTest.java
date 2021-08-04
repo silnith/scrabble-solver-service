@@ -1,8 +1,9 @@
 package org.silnith.bluenile.scrabble.dictionary;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.SortedSet;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,8 +26,8 @@ class ScrabbleServiceTest {
     @Test
     public void testGetWordsReturnsAListOfWords() {
         SortedSet<String> words = scrabbleService.getWords("hat");
-        Assertions.assertNotNull(words);
-        Assertions.assertEquals(5, words.size());
+        assertNotNull(words);
+        assertEquals(5, words.size());
     }
     
 }

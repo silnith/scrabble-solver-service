@@ -1,6 +1,9 @@
 spring:
   application:
     name: scrabble-solver-service
+  http:
+    converters:
+      preferred-json-mapper: jsonb
   jersey:
     type: filter
 

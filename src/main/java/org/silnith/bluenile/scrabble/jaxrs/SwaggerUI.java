@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 @Path("swagger-ui")
 public class SwaggerUI {
     
-    private final String version = "3.51.1";
+    private final String version = "3.51.2";
     
     @GET
     @Path("{path}")

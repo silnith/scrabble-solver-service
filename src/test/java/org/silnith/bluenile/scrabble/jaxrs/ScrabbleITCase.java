@@ -1,6 +1,7 @@
 package org.silnith.bluenile.scrabble.jaxrs;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,14 +14,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
-@Disabled("Until mvn integration is completed.")
+@Disabled
 class ScrabbleITCase {
     
     static final GenericType<List<String>> LIST_OF_STRING_TYPE = new GenericType<List<String>>() {};
@@ -45,10 +45,6 @@ class ScrabbleITCase {
     void setUp() throws Exception {
         serviceTarget = client.target("http://localhost:8080");
         wordsTarget = serviceTarget.path("words").path("{letters}");
-    }
-    
-    @AfterEach
-    void tearDown() throws Exception {
     }
     
     @Test

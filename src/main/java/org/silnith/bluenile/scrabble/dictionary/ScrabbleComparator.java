@@ -4,9 +4,8 @@ import java.text.Collator;
 import java.util.Comparator;
 import java.util.Locale;
 
-import javax.annotation.ManagedBean;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
@@ -18,8 +17,8 @@ import javax.validation.executable.ValidateOnExecution;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ManagedBean
-@ValidateOnExecution(type = {ExecutableType.CONSTRUCTORS,})
+@Dependent
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleComparator implements Comparator<String> {
     
     private final ScrabbleScorer scorer;
@@ -32,7 +31,7 @@ public class ScrabbleComparator implements Comparator<String> {
      * @param scorer a component that calculates the Scrabble score of a word
      */
     @Inject
-    public ScrabbleComparator(@NotNull final ScrabbleScorer scorer) {
+    public ScrabbleComparator(final ScrabbleScorer scorer) {
         super();
         this.scorer = scorer;
         this.collator = Collator.getInstance(Locale.ENGLISH);

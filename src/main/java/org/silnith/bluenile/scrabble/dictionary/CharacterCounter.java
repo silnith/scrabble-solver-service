@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.ManagedBean;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -17,7 +17,7 @@ import javax.validation.executable.ValidateOnExecution;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ManagedBean
+@ApplicationScoped
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class CharacterCounter {
     

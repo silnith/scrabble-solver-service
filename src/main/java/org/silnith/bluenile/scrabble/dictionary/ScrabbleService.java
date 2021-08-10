@@ -1,10 +1,11 @@
 package org.silnith.bluenile.scrabble.dictionary;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import javax.annotation.ManagedBean;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,11 +19,11 @@ import javax.validation.executable.ValidateOnExecution;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ManagedBean
+@Dependent
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleService {
     
-    private final ScrabbleComparator comparator;
+    private final Comparator<String> comparator;
     
     private final ScrabbleDictionary dictionary;
     
@@ -33,7 +34,7 @@ public class ScrabbleService {
      * @param scrabbleDictionary a dictionary of Scrabble words
      */
     @Inject
-    public ScrabbleService(@NotNull final ScrabbleComparator comparator, @NotNull final ScrabbleDictionary scrabbleDictionary) {
+    public ScrabbleService(final Comparator<String> comparator, final ScrabbleDictionary scrabbleDictionary) {
         super();
         this.comparator = comparator;
         this.dictionary = scrabbleDictionary;

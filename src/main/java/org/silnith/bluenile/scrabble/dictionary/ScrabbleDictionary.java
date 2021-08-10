@@ -6,8 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.ManagedBean;
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ import javax.validation.executable.ValidateOnExecution;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ManagedBean
+@Dependent
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleDictionary {
     
@@ -38,7 +39,7 @@ public class ScrabbleDictionary {
      *         appears in a word
      */
     @Inject
-    public ScrabbleDictionary(@NotNull final CharacterCounter characterCounter) {
+    public ScrabbleDictionary(final CharacterCounter characterCounter) {
         super();
         this.characterCounter = characterCounter;
         this.wordsByLength = new ArrayList<>();
@@ -53,7 +54,7 @@ public class ScrabbleDictionary {
      * @see DictionaryLoader
      */
     @Inject
-    public void setWords(@NotEmpty final Collection<@NotBlank String> words) {
+    public void setWords(@Named("dictionary") @NotEmpty final Collection<@NotBlank String> words) {
         wordsByLength.clear();
         for (final String word : words) {
             final int length = word.length();

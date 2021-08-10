@@ -2,6 +2,9 @@ package org.silnith.bluenile.scrabble.jaxrs;
 
 import java.io.InputStream;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.executable.ExecutableType;
+import javax.validation.executable.ValidateOnExecution;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
@@ -16,13 +19,17 @@ import javax.ws.rs.core.Response;
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
 @Path("swagger-ui")
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class SwaggerUI {
     
     private final String version = "3.51.2";
     
     @GET
     @Path("{path}")
-    public Response getResource(@PathParam("path") final String path) {
+    public @NotNull Response getResource(@PathParam("path") String path) {
+        if (path == null || path.isEmpty()) {
+            path = "index.html";
+        }
         final String resourceName = "/META-INF/resources/webjars/swagger-ui/" + version + '/' + path;
         final InputStream resourceAsStream = SwaggerUI.class.getResourceAsStream(resourceName);
         if (resourceAsStream == null) {
@@ -32,7 +39,7 @@ public class SwaggerUI {
         return Response.ok(resourceAsStream, mediaType).build();
     }
     
-    private MediaType getMediaType(final String path) {
+    private @NotNull MediaType getMediaType(@NotNull final String path) {
         if (path.endsWith(".js")) {
             return MediaType.APPLICATION_JSON_TYPE;
         }

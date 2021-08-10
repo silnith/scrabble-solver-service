@@ -5,9 +5,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.ManagedBean;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
 
@@ -17,7 +18,7 @@ import javax.validation.executable.ValidateOnExecution;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ManagedBean
+@ApplicationScoped
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleScorer {
     
@@ -29,27 +30,27 @@ public class ScrabbleScorer {
     @Inject
     public ScrabbleScorer() {
         super();
-        letterScore = new HashMap<>();
+        this.letterScore = new HashMap<>();
         for (final char c : Arrays.asList('A', 'E', 'I', 'L', 'N', 'O', 'R', 'S', 'T', 'U')) {
-            letterScore.put(Character.toLowerCase(c), 1);
+            this.letterScore.put(Character.toLowerCase(c), 1);
         }
         for (final char c : Arrays.asList('D', 'G')) {
-            letterScore.put(Character.toLowerCase(c), 2);
+            this.letterScore.put(Character.toLowerCase(c), 2);
         }
         for (final char c : Arrays.asList('B', 'C', 'M', 'P')) {
-            letterScore.put(Character.toLowerCase(c), 3);
+            this.letterScore.put(Character.toLowerCase(c), 3);
         }
         for (final char c : Arrays.asList('F', 'H', 'V', 'W', 'Y')) {
-            letterScore.put(Character.toLowerCase(c), 4);
+            this.letterScore.put(Character.toLowerCase(c), 4);
         }
         for (final char c : Arrays.asList('K')) {
-            letterScore.put(Character.toLowerCase(c), 5);
+            this.letterScore.put(Character.toLowerCase(c), 5);
         }
         for (final char c : Arrays.asList('J', 'X')) {
-            letterScore.put(Character.toLowerCase(c), 8);
+            this.letterScore.put(Character.toLowerCase(c), 8);
         }
         for (final char c : Arrays.asList('Q', 'Z')) {
-            letterScore.put(Character.toLowerCase(c), 10);
+            this.letterScore.put(Character.toLowerCase(c), 10);
         }
     }
     
@@ -61,7 +62,7 @@ public class ScrabbleScorer {
      * @param word the word to score
      * @return the score of the word
      */
-    public int score(@NotNull final String word) {
+    public @PositiveOrZero int score(@NotNull final String word) {
         int score = 0;
         for (final char c : word.toLowerCase(Locale.ENGLISH).toCharArray()) {
             score += letterScore.getOrDefault(c, 0);

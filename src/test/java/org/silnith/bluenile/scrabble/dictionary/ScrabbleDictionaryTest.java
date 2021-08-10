@@ -1,6 +1,6 @@
 package org.silnith.bluenile.scrabble.dictionary;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ class ScrabbleDictionaryTest {
     @BeforeEach
     void setUp() throws Exception {
         dictionary = new ScrabbleDictionary(new CharacterCounter());
-        dictionary.setWords(new DictionaryLoader("/dictionary.txt").call());
+        dictionary.setWords(new DictionaryLoader().loadDictionary());
     }
     
     @Test

@@ -25,8 +25,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
  * 
  * @author <a href="mailto:silnith@gmail.com">Kent Rosenkoetter</a>
  */
-@ValidateOnExecution(type = {ExecutableType.ALL,})
 @Path("words")
+@ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleController {
     
     private final ScrabbleService scrabbleService;
@@ -37,7 +37,7 @@ public class ScrabbleController {
      * @param scrabbleService a service that handles Scrabble-related functionality
      */
     @Inject
-    public ScrabbleController(@NotNull final ScrabbleService scrabbleService) {
+    public ScrabbleController(final ScrabbleService scrabbleService) {
         super();
         this.scrabbleService = scrabbleService;
     }

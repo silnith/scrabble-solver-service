@@ -1,7 +1,9 @@
 package org.silnith.bluenile.scrabble.dictionary;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.SortedSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -18,16 +20,15 @@ class ScrabbleServiceTest {
         final ScrabbleComparator comparator = new ScrabbleComparator(scorer);
         final CharacterCounter characterCounter = new CharacterCounter();
         final ScrabbleDictionary scrabbleDictionary = new ScrabbleDictionary(characterCounter);
-        final DictionaryLoader dictionaryLoader = new DictionaryLoader("/dictionary.txt");
-        scrabbleDictionary.setWords(dictionaryLoader.call());
+        final DictionaryLoader dictionaryLoader = new DictionaryLoader();
+        scrabbleDictionary.setWords(dictionaryLoader.loadDictionary());
         scrabbleService = new ScrabbleService(comparator, scrabbleDictionary);
     }
 
     @Test
-    public void testGetWordsReturnsAListOfWords() {
+    void testGetWordsReturnsAListOfWords() {
         SortedSet<String> words = scrabbleService.getWords("hat");
-        assertNotNull(words);
-        assertEquals(5, words.size());
+        assertEquals(Arrays.asList("hat", "ha", "ah", "ta", "at"), new ArrayList<>(words));
     }
     
 }

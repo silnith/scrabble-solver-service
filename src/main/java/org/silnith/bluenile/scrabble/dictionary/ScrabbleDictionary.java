@@ -1,11 +1,13 @@
 package org.silnith.bluenile.scrabble.dictionary;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,7 +55,7 @@ public class ScrabbleDictionary {
      * @param words all the words in the dictionary
      * @see DictionaryLoader
      */
-    @Inject
+//    @Inject
     public void setWords(@Named("dictionary") @NotEmpty final Collection<@NotBlank String> words) {
         wordsByLength.clear();
         for (final String word : words) {
@@ -63,6 +65,31 @@ public class ScrabbleDictionary {
             }
             final Collection<String> collection = wordsByLength.get(length);
             collection.add(word);
+        }
+    }
+    
+    /**
+     * A work-around for the fact that Jetty with Weld does not seem able to handle the
+     * {@link javax.enterprise.inject.Produces} annotation in order to create the
+     * named {@code "dictionary"} bean from {@link DictionaryLoader#loadDictionary()}.
+     */
+    private DictionaryLoader dictionaryLoader;
+    
+    @Inject
+    public void setDictionaryLoader(final DictionaryLoader dictionaryLoader) {
+        this.dictionaryLoader = dictionaryLoader;
+    }
+    
+    /**
+     * Retrieves the {@code "dictionary"} bean from {@link DictionaryLoader#loadDictionary()}
+     * and sets it using {@link #setWords(Collection)}.
+     */
+    @PostConstruct
+    public void load() {
+        try {
+            setWords(dictionaryLoader.loadDictionary());
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
         }
     }
     

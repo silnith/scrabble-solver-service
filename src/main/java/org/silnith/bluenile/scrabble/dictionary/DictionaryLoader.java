@@ -43,7 +43,6 @@ public class DictionaryLoader {
      * @throws IOException if the specified resource failed to load
      */
     @Produces
-    @ApplicationScoped
     @Named("dictionary")
     public @NotEmpty Collection<@NotBlank String> loadDictionary() throws IOException {
         final InputStream resourceAsStream = DictionaryLoader.class.getResourceAsStream("/dictionary.txt");

@@ -16,11 +16,9 @@ import javax.ws.rs.core.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 
-@Disabled
 class ScrabbleITCase {
     
     static final GenericType<List<String>> LIST_OF_STRING_TYPE = new GenericType<List<String>>() {};
@@ -43,7 +41,7 @@ class ScrabbleITCase {
     
     @BeforeEach
     void setUp() throws Exception {
-        serviceTarget = client.target("http://localhost:8080");
+        serviceTarget = client.target("http://localhost:8080/scrabble");
         wordsTarget = serviceTarget.path("words").path("{letters}");
     }
     
@@ -51,23 +49,25 @@ class ScrabbleITCase {
     void testWords_Hat() {
         final Response response = wordsTarget.resolveTemplate("letters", "hat")
                 .request(MediaType.APPLICATION_JSON_TYPE).get();
-        assertEquals(Response.Status.OK, response.getStatusInfo());
-        assertEquals(Arrays.asList("hat", "ha", "ah", "ta", "at"),
-                response.readEntity(LIST_OF_STRING_TYPE));
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatusInfo().getStatusCode());
+//        assertEquals(Arrays.asList("hat", "ha", "ah", "ta", "at"),
+//                response.readEntity(LIST_OF_STRING_TYPE));
+        assertEquals("[\"hat\",\"ha\",\"ah\",\"ta\",\"at\"]",
+                response.readEntity(String.class));
     }
     
     @Test
     void testWords_Space() {
         final Response response = wordsTarget.resolveTemplate("letters", "   ")
                 .request(MediaType.APPLICATION_JSON_TYPE).get();
-        assertEquals(Response.Status.BAD_REQUEST, response.getStatusInfo());
+        assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatusInfo().getStatusCode());
     }
     
     @Test
     void testOpenAPI() {
         final Response response = serviceTarget.path("openapi")
                 .request(MediaType.APPLICATION_JSON_TYPE).get();
-        assertEquals(Response.Status.OK, response.getStatusInfo());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatusInfo().getStatusCode());
         assertNotNull(response.readEntity(String.class));
     }
     
@@ -75,7 +75,7 @@ class ScrabbleITCase {
     void testSwaggerUI() {
         final Response response = serviceTarget.path("swagger-ui").path("index.html")
                 .request(MediaType.TEXT_HTML_TYPE).get();
-        assertEquals(Response.Status.OK, response.getStatusInfo());
+        assertEquals(Response.Status.OK.getStatusCode(), response.getStatusInfo().getStatusCode());
         assertNotNull(response.readEntity(String.class));
     }
     

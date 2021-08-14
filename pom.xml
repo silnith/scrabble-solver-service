@@ -402,13 +402,6 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
 				</executions>
 			</plugin>
 		</plugins>
@@ -419,13 +412,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>checkstyle</report>
-						</reports>
-					</reportSet>
-				</reportSets>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -444,16 +430,10 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
-				<reportSets>
-					<reportSet>
-						<id>all-updates</id>
-						<reports>
-							<report>dependency-updates-report</report>
-							<report>plugin-updates-report</report>
-							<report>property-updates-report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</reporting>

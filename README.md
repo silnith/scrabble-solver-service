@@ -1,5 +1,11 @@
 # Scrabble Solver Service
 
-1. Run the service.
-1. Visit [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-1. Enter [http://localhost:8080/openapi](http://localhost:8080/openapi) as the location of the OpenAPI specification.
+```sh
+mvn clean verify site
+```
+
+This is a standard WAR file.  The application server must have JAX-RS and CDI
+support enabled.  Glassfish and Wildfly have this by default.  Tomcat and Jetty
+require additional libraries to be added.
+
+This is built against Java 1.8 using the pre-Jakarta imports.

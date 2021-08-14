@@ -31,24 +31,6 @@ public class ScrabbleController {
     
     private ScrabbleService scrabbleService;
     
-    /**
-     * Creates a new REST controller exposing Scrabble functionality.
-     */
-    public ScrabbleController() {
-        super();
-    }
-    
-    /**
-     * Creates a new REST controller exposing Scrabble functionality.
-     * 
-     * @param scrabbleService a service that handles Scrabble-related functionality
-     */
-    @Inject
-    public ScrabbleController(final ScrabbleService scrabbleService) {
-        super();
-        this.scrabbleService = scrabbleService;
-    }
-    
     @Inject
     public void setScrabbleService(final ScrabbleService scrabbleService) {
         this.scrabbleService = scrabbleService;

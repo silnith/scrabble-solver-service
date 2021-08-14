@@ -29,7 +29,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @ValidateOnExecution(type = {ExecutableType.ALL,})
 public class ScrabbleController {
     
-    private final ScrabbleService scrabbleService;
+    private ScrabbleService scrabbleService;
+    
+    /**
+     * Creates a new REST controller exposing Scrabble functionality.
+     */
+    public ScrabbleController() {
+        super();
+    }
     
     /**
      * Creates a new REST controller exposing Scrabble functionality.
@@ -42,6 +49,11 @@ public class ScrabbleController {
         this.scrabbleService = scrabbleService;
     }
     
+    @Inject
+    public void setScrabbleService(final ScrabbleService scrabbleService) {
+        this.scrabbleService = scrabbleService;
+    }
+
     /**
      * Returns all legal Scrabble words that can be formed using the provided letters.
      * The words will be sorted by Scrabble score, descending.

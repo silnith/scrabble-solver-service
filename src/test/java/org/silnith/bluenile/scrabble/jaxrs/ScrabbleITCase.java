@@ -3,7 +3,6 @@ package org.silnith.bluenile.scrabble.jaxrs;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -41,7 +40,7 @@ class ScrabbleITCase {
     
     @BeforeEach
     void setUp() throws Exception {
-        serviceTarget = client.target("http://localhost:8080/scrabble");
+        serviceTarget = client.target("http://localhost:8080/scrabble/scrabble");
         wordsTarget = serviceTarget.path("words").path("{letters}");
     }
     

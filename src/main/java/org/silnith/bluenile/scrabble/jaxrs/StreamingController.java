@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Iterator;
+
 import javax.inject.Inject;
 import javax.json.JsonValue;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
 import javax.json.stream.JsonParser;
-import javax.json.stream.JsonParser.Event;
+import javax.json.stream.JsonParserFactory;
 import javax.validation.constraints.NotNull;
 import javax.validation.executable.ExecutableType;
 import javax.validation.executable.ValidateOnExecution;
-import javax.json.stream.JsonParserFactory;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.WebApplicationException;
@@ -63,8 +63,8 @@ public class StreamingController {
             public void write(final OutputStream output) throws IOException, WebApplicationException {
                 try (final JsonGenerator generator = generatorFactory.createGenerator(output);
                         final JsonParser parser = parserFactory.createParser(in);) {
-                    final Event event = parser.next();
-                    if (event != Event.START_ARRAY) {
+                    final JsonParser.Event event = parser.next();
+                    if (event != JsonParser.Event.START_ARRAY) {
                         throw new IllegalArgumentException();
                     }
                     final Iterator<JsonValue> iterator = parser.getArrayStream().sequential().iterator();
